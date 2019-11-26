@@ -20,6 +20,7 @@ import com.example.androidonlinequizapp.Model.QuestionScore;
 import com.example.androidonlinequizapp.Model.Ranking;
 import com.example.androidonlinequizapp.ViewHolder.RankingViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,7 +59,7 @@ public class RangkingFragment extends Fragment {
         myFragment = inflater.inflate(R.layout.fragment_rangking, container, false);
 
         //Init View
-        rankingList = myFragment.findViewById(R.id.rankingList);
+        rankingList = (RecyclerView)myFragment.findViewById(R.id.rankingList);
         layoutManager = new LinearLayoutManager(getActivity());
         rankingList.setHasFixedSize(true);
 
@@ -76,14 +77,14 @@ public class RangkingFragment extends Fragment {
         });
 
         //Set Adapter
-        adapter = new FirebaseRecyclerAdapter<Ranking, RankingViewHolder>(
-                Ranking.class,
-                R.layout.layout_ranking,
-                RankingViewHolder.class,
-                rankingTbl.orderByChild("score")
-        ) {
+        FirebaseRecyclerOptions<Ranking> options =
+                new FirebaseRecyclerOptions.Builder<Ranking>()
+                        .setQuery(rankingTbl, Ranking.class)
+                        .build();
+
+        adapter = new FirebaseRecyclerAdapter<Ranking, RankingViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull RankingViewHolder rankingViewHolder, int i, @NonNull Ranking ranking) {
+            protected void onBindViewHolder(@NonNull RankingViewHolder rankingViewHolder, int position, @NonNull Ranking ranking) {
                 rankingViewHolder.txt_name.setText(ranking.getUserName());
                 rankingViewHolder.txt_score.setText(String.valueOf(ranking.getScore()));
 
