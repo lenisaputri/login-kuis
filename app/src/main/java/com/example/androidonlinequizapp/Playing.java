@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Playing extends AppCompatActivity implements View.OnClickListener{
     final static long INTERVAL = 1000;//1sec
-    final static long TIMEOUT = 7000;//7sec
+    final static long TIMEOUT = 600000;//7sec
     int progressValue = 0;
 
     CountDownTimer mCountDown;

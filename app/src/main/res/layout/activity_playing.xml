@@ -26,6 +26,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:gravity="center"
+        android:text="Question"
+        android:textColor="#ffffff"
         />
     <RelativeLayout
         android:layout_width="wrap_content"
