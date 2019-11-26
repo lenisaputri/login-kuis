@@ -19,6 +19,7 @@ import com.example.androidonlinequizapp.Interface.RankingCallBack;
 import com.example.androidonlinequizapp.Model.QuestionScore;
 import com.example.androidonlinequizapp.Model.Ranking;
 import com.example.androidonlinequizapp.ViewHolder.RankingViewHolder;
+import com.example.androidonlinequizapp.ViewHolder.ScoreDetail;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -59,7 +60,7 @@ public class RangkingFragment extends Fragment {
         myFragment = inflater.inflate(R.layout.fragment_rangking, container, false);
 
         //Init View
-        rankingList = (RecyclerView)myFragment.findViewById(R.id.rankingList);
+        rankingList = myFragment.findViewById(R.id.ranking_list);
         layoutManager = new LinearLayoutManager(getActivity());
         rankingList.setHasFixedSize(true);
 
@@ -84,14 +85,16 @@ public class RangkingFragment extends Fragment {
 
         adapter = new FirebaseRecyclerAdapter<Ranking, RankingViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull RankingViewHolder rankingViewHolder, int position, @NonNull Ranking ranking) {
+            protected void onBindViewHolder(@NonNull RankingViewHolder rankingViewHolder, int position, @NonNull final Ranking ranking) {
                 rankingViewHolder.txt_name.setText(ranking.getUserName());
                 rankingViewHolder.txt_score.setText(String.valueOf(ranking.getScore()));
 
                 rankingViewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-
+                        Intent scoreDetail = new Intent(getActivity(), ScoreDetail.class);
+                        scoreDetail.putExtra("viewUser", ranking.getUserName());
+                        startActivity(scoreDetail);
                     }
                 });
             }

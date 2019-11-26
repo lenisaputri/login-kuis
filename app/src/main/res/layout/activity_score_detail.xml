@@ -47,7 +47,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/ranking_list"
+        android:id="@+id/score_list"
         android:layout_below="@+id/title"
         >
 
