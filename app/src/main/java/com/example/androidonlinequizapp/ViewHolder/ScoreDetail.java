@@ -59,19 +59,19 @@ public class ScoreDetail extends AppCompatActivity {
         FirebaseRecyclerOptions personsOptions = new FirebaseRecyclerOptions.Builder<QuestionScore>()
                 .setQuery(question_score, QuestionScore.class)
                 .build();
-        adapter = new FirebaseRecyclerAdapter<QuestionScore, ScoreDetailViewHolder>(personsOptions)(
+        adapter = new FirebaseRecyclerAdapter<QuestionScore, ScoreDetailViewHolder>(personsOptions) {
+            @NonNull
+            @Override
+            public ScoreDetailViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.score_detail_layout, parent, false);
+                return new ScoreDetailViewHolder(view);
+            }
 
             @Override
             protected void onBindViewHolder(@NonNull ScoreDetailViewHolder viewHolder, int i, @NonNull QuestionScore questionScore) {
                 viewHolder.txt_name.setText(questionScore.getCategoryName());
                 viewHolder.txt_score.setText(questionScore.getScore());
             }
-             @Override
-            public ScoreDetailViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.score_detail_layout, parent, false);
-                return new ScoreDetailViewHolder(view);
-            }
-
 
         };
 
